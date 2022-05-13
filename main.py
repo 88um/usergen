@@ -59,7 +59,7 @@ class Generator:
                 words = requests.get(url).text
                 for i in words.split(","):
                     word = i.replace('"',"").replace(']',"").replace("[","")
-                    if word not in users and self.check3(word):
+                    if word not in users and self.check3(word) and added!=count:
                         users.append(word) 
                         file.write(f"{word}\n")
                         added+=1
