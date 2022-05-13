@@ -7,7 +7,7 @@ import time
 class Generator:
 
     def check(self,word): #Make sure the first/last letter is not a underscore or dot and that there isnt two dots 
-        return word not in users and word[0] != "." and word[0] != "_" and ".." not in word and not word.endswith(".") and self.check2(word)
+        return word not in users and not word.isdigit() and word[0] != "." and word[0] != "_" and ".." not in word and not word.endswith(".") and self.check2(word)
 
     def check2(self,word):
         return any(i.isdigit() for i in word) or "." in word or "_" in word
