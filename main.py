@@ -12,6 +12,9 @@ class Generator:
     def check2(self,word):
         return any(i.isdigit() for i in word) or "." in word or "_" in word
 
+    def check3(self,word):
+        return "-" not in word and " " not in word
+
     def threeL(self,count):
         added = 0
         while added!=count:
@@ -51,14 +54,16 @@ class Generator:
     def singleWord(self,count):
         added = 0
         while added!=count:
-            url = f"https://random-word-form.herokuapp.com/random/noun?count={count}"
-            words = requests.get(url).text
-            for i in words.split(","):
-                word = i.replace('"',"").replace(']',"").replace("[","")
-                if word not in users:
-                    users.append(word) 
-                    file.write(f"{word}\n")
-                    added+=1
+            try:
+                url = f"https://random-word-form.herokuapp.com/random/noun/{random.choice(letters)}?count={count}"
+                words = requests.get(url).text
+                for i in words.split(","):
+                    word = i.replace('"',"").replace(']',"").replace("[","")
+                    if word not in users and self.check3(word):
+                        users.append(word) 
+                        file.write(f"{word}\n")
+                        added+=1
+            except:pass
     
 
 if __name__ == "__main__":
